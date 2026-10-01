@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Login e Cadastro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Container Principal do Formulário -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full">
+        <!-- Nome alterado de SanitApp para TechStore -->
+        <h1 class="text-3xl font-extrabold text-center text-blue-600 mb-6">TechStore</h1>
+        
+        <!-- Toggle Tabs -->
+        <div class="flex mb-6 p-1 bg-gray-100 rounded-xl">
+            <button id="tab-login-btn" class="w-1/2 py-2 text-sm font-semibold rounded-lg bg-white shadow-md text-blue-600 transition-colors">
+                Login
+            </button>
+            <button id="tab-cadastro-btn" class="w-1/2 py-2 text-sm font-semibold rounded-lg text-gray-600 hover:text-blue-600 transition-colors">
+                Cadastrar
+            </button>
+        </div>
+
+        <!-- Conteúdo do Login -->
+        <div id="tab-login" class="tab-content active">
+            <form action="dashboard.html" method="GET">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Acessar sua conta</h2>
+
+                <div class="mb-4">
+                    <label for="login-email" class="block text-gray-700 font-semibold mb-2">E-mail ou CPF</label>
+                    <input type="text" id="login-email" placeholder="seu.email@exemplo.com" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="login-senha" class="block text-gray-700 font-semibold mb-2">Senha</label>
+                    <input type="password" id="login-senha" placeholder="********" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <a href="#" class="text-sm text-blue-600 hover:text-blue-800 mt-2 block text-right">Esqueceu a senha?</a>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    ENTRAR
+                </button>
+            </form>
+        </div>
+
+        <!-- Conteúdo do Cadastro -->
+        <div id="tab-cadastro" class="tab-content">
+            <form action="dashboard.html" method="GET">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Criar nova conta</h2>
+
+                <!-- Nome Completo -->
+                <div class="mb-4">
+                    <label for="cad-nome" class="block text-gray-700 font-semibold mb-2">Nome Completo</label>
+                    <input type="text" id="cad-nome" placeholder="Seu nome" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <!-- Data de Nascimento -->
+                <div class="mb-4">
+                    <label for="cad-nascimento" class="block text-gray-700 font-semibold mb-2">Data de Nascimento</label>
+                    <input type="date" id="cad-nascimento" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- CPF -->
+                <div class="mb-4">
+                    <label for="cad-cpf" class="block text-gray-700 font-semibold mb-2">CPF</label>
+                    <input type="text" id="cad-cpf" placeholder="000.000.000-00" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- E-mail -->
+                <div class="mb-4">
+                    <label for="cad-email" class="block text-gray-700 font-semibold mb-2">E-mail</label>
+                    <input type="email" id="cad-email" placeholder="seu.email@exemplo.com" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Endereço Detalhado -->
+                <h3 class="text-md font-bold text-gray-800 mt-6 mb-4 border-t pt-4">Seu Endereço</h3>
+
+                <!-- CEP -->
+                <div class="mb-4">
+                    <label for="cad-cep" class="block text-gray-700 font-semibold mb-2">CEP</label>
+                    <input type="text" id="cad-cep" placeholder="00000-000" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Logradouro -->
+                <div class="mb-4">
+                    <label for="cad-logradouro" class="block text-gray-700 font-semibold mb-2">Logradouro (Rua/Av)</label>
+                    <input type="text" id="cad-logradouro" placeholder="Rua, Avenida, etc." required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <!-- Número e Complemento -->
+                <div class="flex space-x-3 mb-4">
+                    <div class="w-1/3">
+                        <label for="cad-numero" class="block text-gray-700 font-semibold mb-2">Número</label>
+                        <input type="text" id="cad-numero" placeholder="Nº" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="w-2/3">
+                        <label for="cad-complemento" class="block text-gray-700 font-semibold mb-2">Complemento</label>
+                        <input type="text" id="cad-complemento" placeholder="Ex: Ap, Bloco" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <!-- Cidade e Estado -->
+                <div class="flex space-x-3 mb-6">
+                    <div class="w-3/4">
+                        <label for="cad-cidade" class="block text-gray-700 font-semibold mb-2">Cidade</label>
+                        <input type="text" id="cad-cidade" placeholder="Cidade" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="w-1/4">
+                        <label for="cad-estado" class="block text-gray-700 font-semibold mb-2">Estado</label>
+                        <input type="text" id="cad-estado" placeholder="UF" maxlength="2" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <!-- Senha -->
+                <div class="mb-6">
+                    <label for="cad-senha" class="block text-gray-700 font-semibold mb-2">Crie uma Senha</label>
+                    <input type="password" id="cad-senha" placeholder="********" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    CADASTRAR
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabLoginBtn = document.getElementById('tab-login-btn');
+            const tabCadastroBtn = document.getElementById('tab-cadastro-btn');
+            const tabLogin = document.getElementById('tab-login');
+            const tabCadastro = document.getElementById('tab-cadastro');
+
+            function setActiveTab(activeTab, inactiveTab, activeBtn, inactiveBtn) {
+                activeTab.classList.add('active');
+                inactiveTab.classList.remove('active');
+                
+                activeBtn.classList.add('bg-white', 'shadow-md', 'text-blue-600');
+                activeBtn.classList.remove('text-gray-600', 'hover:text-blue-600');
+                
+                inactiveBtn.classList.remove('bg-white', 'shadow-md', 'text-blue-600');
+                inactiveBtn.classList.add('text-gray-600', 'hover:text-blue-600');
+            }
+
+            tabLoginBtn.addEventListener('click', () => {
+                setActiveTab(tabLogin, tabCadastro, tabLoginBtn, tabCadastroBtn);
+            });
+
+            tabCadastroBtn.addEventListener('click', () => {
+                setActiveTab(tabCadastro, tabLogin, tabCadastroBtn, tabLoginBtn);
+            });
+
+            setActiveTab(tabLogin, tabCadastro, tabLoginBtn, tabCadastroBtn);
+        });
+    </script>
+</body>
+</html>
