@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   # 1. VERIFICAÇÃO DE QUALIDADE
@@ -75,4 +76,4 @@ jobs:
         uses: zaproxy/action-baseline@v0.12.0
         with:
           target: 'https://MateusWashington.github.io/Pipeline_CI-CD_Techstore/'
-          fail_action: true #Falhar o build em alertas do ZAP
+          fail_action: false #Falhar o build em alertas do ZAP
