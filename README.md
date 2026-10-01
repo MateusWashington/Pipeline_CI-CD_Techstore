@@ -8,8 +8,11 @@ Este repositório contém a esteira de integração e entrega contínuas (CI/CD)
 
 
 | **Qualidade (Linting)** | `HTMLHint` | Validação estática do código HTML para garantir sintaxe correta e boas práticas. |
+
 | **Segurança SAST** | `Trivy` | Análise estática do repositório para identificação de vulnerabilidades conhecidas no código e dependências. |
+
 | **Deploy** | `GitHub Pages` | Publicação automatizada da aplicação web no ambiente de hospedagem do GitHub. |
+
 | **Segurança DAST** | `OWASP ZAP` | Varredura de segurança dinâmica contra a URL da aplicação em execução para detectar falhas em tempo de execução. |
 
 ---
