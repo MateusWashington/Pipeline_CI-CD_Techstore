@@ -18,6 +18,7 @@ Este repositório contém a esteira de integração e entrega contínuas (CI/CD)
 
 A pipeline é executada automaticamente a cada `push` ou `pull request` nas branches principais (`main` ou `master`). O fluxo é composto por 4 jobs interdependentes:
 
+```text
 git push / Pull Request
        |
        v
@@ -29,3 +30,4 @@ git push / Pull Request
        |
        v
 [dast-security]  ----- OWASP ZAP (varredura dinâmica no site ativo)
+```
