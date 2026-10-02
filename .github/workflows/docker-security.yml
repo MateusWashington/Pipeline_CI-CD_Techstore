@@ -1,0 +1,23 @@
+name: Docker Security TechStore
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+
+jobs:
+  docker-security:
+    name: Docker Build e Security
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Construir imagem Docker
+        run: docker build -t techstore:1.0 .
+
+      - name: Verificar segurança da imagem com Dockle
+        uses: goodwithtech/dockle-action@main
+        with:
+          image: techstore:1.0
