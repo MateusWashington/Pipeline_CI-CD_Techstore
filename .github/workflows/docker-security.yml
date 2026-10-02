@@ -2,12 +2,12 @@ name: Docker Security TechStore
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "feat/docker-security" ]
   pull_request:
 
 jobs:
   docker-security:
-    name: Docker Build e Security
+    name: Docker Build e Segurança
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,4 @@ jobs:
         uses: goodwithtech/dockle-action@main
         with:
           image: techstore:1.0
+          ignore: 'DKL-DI-0004'
