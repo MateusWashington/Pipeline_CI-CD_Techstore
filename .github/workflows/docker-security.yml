@@ -21,4 +21,5 @@ jobs:
         uses: goodwithtech/dockle-action@main
         with:
           image: techstore:1.0
-          options: "--ignore DKL-DI-0004 --accept-key GNUPGHOME"
+          ignore: 'DKL-DI-0004'
+          accept-key: 'GNUPGHOME'
