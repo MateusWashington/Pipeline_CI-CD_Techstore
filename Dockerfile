@@ -1,16 +1,8 @@
-FROM python:3.12-slim
+FROM nginx:alpine
 
-WORKDIR /app
+COPY index.html /usr/share/nginx/html/index.html
 
-COPY index.html .
-
-RUN useradd -m appuser && chown -R appuser /app
-
-USER appuser
-
-EXPOSE 8000
+EXPOSE 80
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"
-
-CMD ["python", "-m", "http.server", "8000"]
+  CMD wget --spider -q http://localhost/ || exit 1
