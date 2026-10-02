@@ -1,4 +1,4 @@
-name: Pipeline CI/CD TechStore - Qualidade e Segurança n
+name: Pipeline CI/CD TechStore - Qualidade e Segurança
 
 on:
   push:
@@ -30,9 +30,9 @@ jobs:
           npm install -g htmlhint
           htmlhint *.html
 
-  # 2. VERIFICAÇÃO DE SEGURANÇA - SAST
+  # 2. VERIFICAÇÃO DE SEGURANÇA - SAST (Trivy)
   sast-security:
-    name: 2. Análise de Segurança Estática (SAST)
+    name: 2. Análise de Segurança Estática (Trivy)
     runs-on: ubuntu-latest
     needs: quality-check
 
@@ -45,14 +45,29 @@ jobs:
         with:
           scan-type: 'fs'
           scan-ref: '.'
-          exit-code: '1' # Interrompe o processo se encontrar falhas críticas
+          exit-code: '1'
           severity: 'CRITICAL,HIGH'
+
+  # 2b. VERIFICAÇÃO DE SEGURANÇA - SAST (Semgrep)
+  semgrep-security:
+    name: 2b. Análise de Segurança Estática (Semgrep)
+    runs-on: ubuntu-latest
+    needs: quality-check
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Rodar Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: 'p/security-audit'
 
   # DEPLOY TEMPORÁRIO PARA VIABILIZAR O DAST
   deploy:
     name: Deploy para GitHub Pages
     runs-on: ubuntu-latest
-    needs: sast-security
+    needs: [sast-security, semgrep-security]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
 
     steps:
