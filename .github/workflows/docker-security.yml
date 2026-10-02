@@ -22,5 +22,5 @@ jobs:
         with:
           image: techstore:1.0
           ignore: 'DKL-DI-0004'
-          accept-key: 'GNUPGHOME'
+          accept-key: 'GNUPGHOME,--strip-components'
           exit-level: 'fatal'
