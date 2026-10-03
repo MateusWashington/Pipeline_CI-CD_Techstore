@@ -113,11 +113,6 @@ jobs:
           fail_action: false
           artifact_name: 'zap-scan-report'
 
-
-
-
-  # ADIÇÃO DE STEP HEITOR =================================
-
   # 2.1 SAST - SEMGREP - (regras `p/default` e `p/javascript`)
   sast-semgrep:
     name: 2.1 Análise Estática Complementar (Semgrep)
@@ -140,7 +135,7 @@ jobs:
           name: semgrep-report
           path: semgrep-report.sarif
 
-  # 3.1 DAST COMPLEMENTAR - NUCLEI
+  # 3.1 DAST - NUCLEI
   dast-nuclei:
     name: 3.1 Análise Dinâmica Complementar (Nuclei)
     runs-on: ubuntu-latest
