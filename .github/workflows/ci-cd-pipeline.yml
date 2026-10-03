@@ -63,6 +63,22 @@ jobs:
         with:
           config: 'p/security-audit'
 
+  # 3. VERIFICAÇÃO DE SEGREDOS - SECRET SCANNING
+  secret-scanning:
+    name: 3. Verificação de Secrets (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Garante a leitura do histórico de commits
+
+
+      - name: Executar Varredura de Secrets com Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       
+
   # DEPLOY TEMPORÁRIO PARA VIABILIZAR O DAST
   deploy:
     name: Deploy para GitHub Pages
@@ -80,7 +96,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
 
-  # 3. VERIFICAÇÃO DE SEGURANÇA - DAST
+  # 4. VERIFICAÇÃO DE SEGURANÇA - DAST
   dast-security:
     name: 3. Análise de Segurança Dinâmica (DAST)
     runs-on: ubuntu-latest
