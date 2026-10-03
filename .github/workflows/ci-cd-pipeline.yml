@@ -116,7 +116,7 @@ jobs:
 
 
 
-# ADIÇÃO DE STEP HEITOR =================================
+  # ADIÇÃO DE STEP HEITOR =================================
 
   # 2.1 SAST - SEMGREP - (regras `p/default` e `p/javascript`)
   sast-semgrep:
