@@ -48,7 +48,7 @@ jobs:
           exit-code: '1'
           severity: 'CRITICAL,HIGH'
 
-  # 2b. VERIFICAÇÃO DE SEGURANÇA - SAST (Semgrep)
+  # 2b. VERIFICAÇÃO DE SEGURANÇA - SAST (Semgrep) - (`p/security-audit`)
   semgrep-security:
     name: 2b. Análise de Segurança Estática (Semgrep)
     runs-on: ubuntu-latest
@@ -118,7 +118,7 @@ jobs:
 
 # ADIÇÃO DE STEP HEITOR =================================
 
-  # 2.1 SAST COMPLEMENTAR - SEMGREP
+  # 2.1 SAST - SEMGREP - (regras `p/default` e `p/javascript`)
   sast-semgrep:
     name: 2.1 Análise Estática Complementar (Semgrep)
     runs-on: ubuntu-latest
