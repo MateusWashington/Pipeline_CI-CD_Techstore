@@ -1,36 +1,46 @@
-# 🚀 Pipeline CI/CD TechStore - Qualidade & DevSecOps
+# 🛒 TechStore - Pipeline CI/CD & DevSecOps
 
-Este repositório contém a esteira de integração e entrega contínuas (CI/CD) desenvolvida para a plataforma **TechStore**. A pipeline foi projetada sob a filosofia **DevSecOps**, garantindo que cada nova alteração no código passe por verificações automatizadas de qualidade de código, segurança estática (SAST) e segurança dinâmica (DAST) antes e durante a publicação.
-
----
-
-## 🛠️ Tecnologias e Ferramentas Utilizadas
-
-
-| **Qualidade (Linting)** | `HTMLHint` | Validação estática do código HTML para garantir sintaxe correta e boas práticas. |
-
-| **Segurança SAST** | `Trivy` | Análise estática do repositório para identificação de vulnerabilidades conhecidas no código e dependências. |
-
-| **Deploy** | `GitHub Pages` | Publicação automatizada da aplicação web no ambiente de hospedagem do GitHub. |
-
-| **Segurança DAST** | `OWASP ZAP` | Varredura de segurança dinâmica contra a URL da aplicação em execução para detectar falhas em tempo de execução. |
+Este repositório contém a aplicação web **TechStore** integrada a uma esteira automatizada de CI/CD no **GitHub Actions**, focada em qualidade de código e segurança (DevSecOps).
 
 ---
 
-## 🔄 Fluxo de Execução da Pipeline
+## ⚡ Fluxo da Pipeline
 
-A pipeline é executada automaticamente a cada `push` ou `pull request` nas branches principais (`main` ou `master`). O fluxo é composto por 4 jobs interdependentes:
+```
+[ Push / PR ] ──► [ Linting (HTMLHint) ] ──────► [ SAST (Trivy & Semgrep) ] ──► [ Deploy (GitHub Pages) ] ──► [ DAST (OWASP ZAP & Nuclei) ]
+             └──► [ Secret Scanning (Gitleaks) ] ┘
+```
 
-```text
-git push / Pull Request
-       |
-       v
-[qualidade-check] ----- HTMLHint (validação sintática de HTML)
-[sast-security]  ----- Trivy (análise estática de vulnerabilidades)
-       |
-       v
-[deploy] -------------- GitHub Pages (publicação do site estático)
-       |
-       v
-[dast-security]  ----- OWASP ZAP (varredura dinâmica no site ativo)
+---
+
+## 🛠️ Ferramentas Utilizadas
+
+| Etapa | Ferramenta | Descrição |
+| :--- | :--- | :--- |
+| **Linting** | HTMLHint | Validação de sintaxe e estrutura do HTML. |
+| **Secrets** | Gitleaks | Inspeção do histórico de commits para impedir chaves/senhas vazadas. |
+| **SAST** | Trivy & Semgrep | Análise estática do código e dependências em busca de vulnerabilidades. |
+| **Deploy** | GitHub Pages | Publicação automática do site estático. |
+| **DAST** | OWASP ZAP & Nuclei | Análise dinâmica de segurança contra o site em execução. |
+
+---
+
+## 🚀 Como Funciona
+
+1. **Gatilhos:** A pipeline roda automaticamente em cada `push` ou `pull_request` para as branches `main` e `master`.
+2. **Quality Gate:** O deploy só é realizado se o código passar sem erros nas etapas de Linting e SAST.
+3. **Relatórios:** Os relatórios das ferramentas de DAST ficam disponíveis para download na aba **Actions** ao final da execução.
+
+---
+
+## 💻 Execução Local
+
+```bash
+# Clonar o repositório
+git clone https://github.com/MateusWashington/Pipeline_CI-CD_Techstore.git
+cd Pipeline_CI-CD_Techstore
+
+# Validar HTML
+npm install -g htmlhint
+htmlhint *.html
 ```
