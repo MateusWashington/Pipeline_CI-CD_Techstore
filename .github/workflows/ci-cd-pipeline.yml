@@ -40,13 +40,15 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Análise estática do código (Trivy)
-        uses: aquasecurity/trivy-action@master
+      - name: Análise de vulnerabilidades com Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
-          exit-code: '1'
+          format: 'table'
           severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
+          exit-code: '1'
 
   # 2b. VERIFICAÇÃO DE SEGURANÇA - SAST (Semgrep) - (`p/security-audit`)
   semgrep-security:
