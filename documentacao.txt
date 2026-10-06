@@ -1,0 +1,261 @@
+GRUPO 3 - PROBLEMÁTICA 04
+
+Mateus Washington, Willams Azevedo, Heitor Casimiro, Guilherme Matheus
+
+
+Problemática recebida
+
+A TechStore precisava melhorar a forma como o código era entregue, garantindo que as alterações passassem por verificações antes de serem disponibilizadas.
+
+Análise do problema
+
+Identificamos que era necessário reduzir processos manuais e verificar a qualidade e a segurança do código antes da entrega.
+
+Proposta da solução
+
+A solução proposta foi criar um processo automatizado de CI/CD utilizando GitHub Actions, realizando as verificações necessárias antes da publicação da aplicação.
+
+Arquitetura da solução
+
+O código é versionado no GitHub e as alterações acionam o workflow do GitHub Actions.
+
+O pipeline segue o fluxo:
+
+Código → Qualidade → SAST → Deploy → DAST
+
+Na etapa de qualidade, o HTMLHint realiza o linting do HTML. Em seguida, Trivy e Semgrep executam análises de segurança estática (SAST). Após essas validações, ocorre o Deploy no GitHub Pages. Por fim, OWASP ZAP e Nuclei realizam as análises de segurança dinâmica (DAST) sobre a aplicação publicada.
+
+Tecnologias e ferramentas utilizadas
+
+GitHub Actions: Plataforma de CI/CD usada para orquestrar os workflows.
+
+Node.js (v20): Configurado para rodar o ambiente de linting e validação de HTML.
+
+HTMLHint: Ferramenta de linting para verificar sintaxe e qualidade de arquivos HTML.
+
+Trivy: Scanner de segurança estática (SAST) que analisa o código e dependências em busca de vulnerabilidades críticas e altas.
+
+Semgrep: Ferramenta de análise estática adicional, com regras de segurança customizáveis e auditáveis.
+
+GitHub Pages: Usado para deploy temporário da aplicação, permitindo que o DAST seja executado sobre uma versão publicada.
+
+OWASP ZAP: Scanner de segurança dinâmica (DAST) que testa a aplicação rodando contra vulnerabilidades comuns em aplicações web.
+
+Justificativa das escolhas técnicas
+
+GitHub Actions: Escolhido por ser nativo do GitHub e integrado diretamente ao fluxo de versionamento.
+
+Node.js + HTMLHint: Node.js é necessário para instalar e rodar o HTMLHint, que garante qualidade e padronização do código HTML.
+
+Trivy: Ferramenta para análise estática de vulnerabilidades em código e dependências. Foi pela capacidade de falhar o pipeline em vulnerabilidades críticas.
+
+Semgrep: Complementa o Trivy, permitindo aplicar regras de segurança mais específicas e customizáveis diretamente no código-fonte.
+
+GitHub Pages: Usado como ambiente temporário de deploy.
+
+OWASP ZAP: Ferramenta consolidada para testes DAST.
+
+Processo de desenvolvimento
+
+Configuração inicial do pipeline
+
+Criação da pasta .github/workflows/ e definição do arquivo YAML.
+
+Estruturação dos jobs em ordem lógica: qualidade → SAST → deploy → DAST.
+
+Implementação incremental
+
+Primeiro job: linting com HTMLHint para garantir qualidade básica.
+
+Segundo job: análise estática com Trivy.
+
+Terceiro job: inclusão do Semgrep para ampliar a cobertura de segurança.
+
+Quarto job: deploy automático no GitHub Pages para disponibilizar a aplicação.
+
+Quinto job: execução do OWASP ZAP para testes dinâmicos.
+
+Integração e dependências entre jobs
+
+Uso de needs: para garantir ordem de execução e evitar que etapas posteriores rodem sem validações prévias.
+
+Deploy só acontece se os testes SAST forem bem-sucedidos.
+
+DAST só roda após o deploy estar concluído.
+
+Validação e ajustes
+
+Testes locais de sintaxe YAML.
+
+Push para branch de feature e execução no GitHub Actions.
+
+Ajustes conforme os relatórios de falhas ou vulnerabilidades.
+
+práticas DevOps aplicadas
+
+Integração Contínua (CI): Automação do fluxo de trabalho utilizando GitHub Actions, disparada a cada push ou pull request nas branches principais (main/master). 
+
+Conceitos da Cultura DevSecOps: Uso de ferramentas para trabalhar no processo de verificação de segurança logo após o commit, durante cada etapa da pipeline até o processo de Deploy e após o processo de Deploy.
+
+Automação de Deploy (CD): Deploy automático para o GitHub Pages após a aprovação em todas as etapas de testes e validações de segurança. 
+
+Análise de Qualidade de Código (Linting): Utilização do HTMLHint para validação de sintaxe e boas práticas nas páginas HTML. 
+
+Análise Estática de Segurança (SAST): Integração das ferramentas Trivy e Semgrep para identificação contínua de vulnerabilidades de código e dependências no pipeline. 
+
+Detecção de Segredos (Secret Scanning): Utilização do Gitleaks no pipeline para impedir o vazamento acidental de chaves, tokens e credenciais no histórico de commits. 
+
+
+instruções para execução do projeto
+
+Pré-requisitos
+
+Git instalado no sistema (com Git Bash).
+
+Node.js (versão 20 ou superior) para execução dos linters locais.
+
+Ter uma conta GitHub
+
+Passo a Passo 
+
+EXECUÇÃO LOCAL
+
+Clonar o Repositório
+
+git clone https://github.com/MateusWashington/Pipeline_CI-CD_Techstore.git 
+
+Acessar a pasta do projeto
+
+cd Pipeline_CI-CD_Techstore 
+
+Instalar dependências (se aplicável)
+
+npm install
+
+Executar validação local do HTML 
+
+npx htmlhint *.html 
+
+Visualizar a aplicação
+
+Abra o arquivo index.html em seu navegador web ou utilize a extensão Live Server no VS Code. 
+
+EXECUÇÃO REMOTA
+
+Fork ou Clone do Repositório 
+
+Faça o clone do repositório para o seu ambiente local ou crie um fork do projeto 
+
+Realizar Alterações e Commit 
+
+Faça as modificações necessárias no código-fonte e realize o commit das alterações 
+
+Disparar o Pipeline (Push ou Pull Request) 
+
+Envie as alterações para a branch principal (`main`) para acionar o workflow automatizado 
+
+testes e validações realizados
+
+Validação de Sintaxe (Linter):
+
+Ferramenta: HTMLHint.
+Objetivo: Garantir a conformidade estrutural dos arquivos .html antes de avançar para a fase de build/deploy.
+—————————————————————————————————————————
+Análise de Vulnerabilidades no Código (SAST - Trivy):
+
+Ferramenta: Trivy Security Scanner.
+Objetivo: Mapear e reportar falhas críticas e de alta severidade no código-fonte.
+—————————————————————————————————————————
+Análise Estática de Segurança (SAST - Semgrep):
+
+Ferramenta: Semgrep (p/security-audit).
+Objetivo: Auditar padrões de código e detectar potenciais brechas de segurança antes da publicação.
+—————————————————————————————————————————
+Varredura de Segredos (Secret Scanning - Gitleaks):
+
+Ferramenta: Gitleaks.
+Objetivo: Analisar todo o histórico de commits à procura de tokens ou informações sensíveis expostas.
+—————————————————————————————————————————
+Análise Estática Complementar (SAST - Semgrep Customizado)
+Ferramenta: Semgrep (regras `p/default` e `p/javascript`). 
+Objetivo: Executar uma inspeção direcionada para a linguagem JavaScript e aplicar regras específicas de bloqueio (Quality Gate) antes de autorizar o deploy. 
+—————————————————————————————————————————
+Análise Dinâmica Complementar (DAST - Nuclei):
+Ferramenta:** Nuclei. 
+Objetivo: Simular requisições e ataques em tempo de execução contra a aplicação publicada no GitHub Pages para identificar vulnerabilidades ativas no ambiente web. 
+—————————————————————————————————————————
+Análise Dinâmica de Segurança (DAST - OWASP ZAP):
+Ferramenta: OWASP ZAP (Zed Attack Proxy).
+Objetivo: Realizar uma varredura dinâmica completa contra a aplicação em execução no GitHub Pages, identificando vulnerabilidades de segurança web (como XSS e cabeçalhos ausentes). 
+
+
+Resultados Obtidos
+
+O pipeline automatizou a verificação de qualidade e segurança em cada push e pull request, cobrindo cinco frentes complementares:
+
+Qualidade (HTMLHint): válida a sintaxe e as boas práticas do HTML. Se falhar, Trivy e Semgrep não rodam.
+
+Trivy (SAST): varre o repositório atrás de vulnerabilidades conhecidas, segredos e configurações inseguras. Reprova o job com achados HIGH ou CRITICAL.
+
+Semgrep (SAST): procura padrões inseguros no código-fonte com as regras p/security-audit, como XSS e uso de eval.
+
+Gitleaks (segredos): procura senhas, tokens e chaves de API. Com fetch-depth: 0 ele lê todo o histórico de commits, então acha segredos que foram apagados do código mas continuam em commits antigos. Como o job não tem needs, roda em paralelo desde o início e não está no needs do deploy, então não bloqueia a publicação.
+
+Deploy: pública no GitHub Pages, só em push na main ou master. Espera Trivy e Semgrep passarem.
+
+OWASP ZAP (DAST): teste passivo no site publicado, como headers ausentes e cookies inseguros. Com fail_action: false, só gera relatório.
+
+Nuclei (DAST): testa o site com templates de falhas conhecidas e misconfiguration. Também só gera relatório.
+
+Limitações da Solução
+
+O Gitleaks não bloqueia o deploy. Ele falha o próprio job se achar segredo, mas como o deploy não depende dele, o site pode ser publicado mesmo assim. Para uma verificação de segredos, isso é uma falha de desenho importante.
+
+O deploy acontece antes do DAST. Uma vulnerabilidade visível só dinamicamente já está publicada quando é detectada. O DAST detecta, não barra.
+
+O DAST só roda em push para main/master. Em Pull Requests o deploy é pulado, então ZAP e Nuclei também.
+
+ZAP e Nuclei não reprovam o pipeline. Com fail_action: false, os achados viram só relatório.
+
+Escopo limitado pelo tipo de aplicação. Um site estático não tem backend, login ou banco de dados. O ZAP em modo baseline faz só testes passivos, sem injeção ativa.
+
+Alguns achados não têm correção possível. O GitHub Pages não permite configurar headers HTTP, então alertas como CSP ausente não são corrigíveis na plataforma.
+
+Espera fixa de 30 segundos (sleep 30). Se o Pages demorar mais para propagar, a varredura pode pegar a versão antiga.
+
+Action do Semgrep desatualizada. O returntocorp/semgrep-action está descontinuado. A recomendação atual do Semgrep é rodar a imagem semgrep/semgrep num container, como na versão anterior do pipeline.
+
+Possíveis Evoluções Futuras
+
+Segurança do processo
+Incluir secret-scanning no needs do deploy, para que um segredo vazado impeça a publicação.
+
+Enviar os resultados SARIF (Semgrep, Trivy) para a aba Security do GitHub (Code Scanning).
+
+Tornar o DAST bloqueante, com fail_action: true no ZAP e verificação do relatório do Nuclei.
+
+Configurar branch protection exigindo que os jobs passem antes do merge.
+
+Ativar o Dependabot e o Secret Scanning nativo do GitHub, além do Gitleaks.
+
+Fixar versões das actions (ou usar o hash do commit) e restringir permissions por job.
+
+DAST mais robusto
+
+Rodar o DAST também em Pull Requests, subindo o site localmente no runner (por exemplo, com http-server) e varrendo localhost.
+
+Usar um ambiente de staging antes da produção, para que o DAST bloqueie o deploy final.
+
+Trocar o sleep 30 por uma verificação que consulta a URL até ela responder.
+
+Usar o ZAP em modo full scan quando houver backend ou formulários.
+
+Qualidade e maturidade
+
+Incluir testes automatizados (unitários e end-to-end) e métricas Lighthouse (desempenho, acessibilidade, boas práticas).
+
+Adicionar notificações (Slack, e-mail) para falhas de segurança.
+
+Consolidar os relatórios numa ferramenta como DefectDojo para acompanhar vulnerabilidades ao longo do tempo.
+
+Evoluir para um fluxo completo de DevSecOps, com política de severidade, prazos de correção e métricas de risco.
